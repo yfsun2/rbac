@@ -1,21 +1,26 @@
 package com.syf.rbac;
 
-import com.syf.rbac.service.impl.UserDetailServiceImpl;
+import com.syf.rbac.entity.User;
+import com.syf.rbac.mapper.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(JUnit4.class)
-@SpringBootTest(classes = {RcbaApplicationTests.class})
+import java.util.List;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest()
 public class RcbaApplicationTests {
 
-//    @Autowired
-    private UserDetailServiceImpl userDetailServiceImpl=new UserDetailServiceImpl();
-//    private UserServiceImpl userService;
+    @Autowired
+    private UserMapper userMapper;
 
     @Test
     public void contextLoads() {
-        System.out.println(userDetailServiceImpl);
+        List<User> users = userMapper.selectList(null);
+        users.forEach(System.out::println);
+
     }
 }

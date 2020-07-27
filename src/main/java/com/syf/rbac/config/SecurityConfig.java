@@ -1,6 +1,7 @@
 package com.syf.rbac.config;
 
 import com.syf.rbac.service.impl.MyAuthenticationProvider;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,6 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.rememberMe().rememberMeParameter("remember-me");
     }
 
+    @Bean
+    MyAuthenticationProvider myAuthenticationProvider(){
+        return new MyAuthenticationProvider();
+    }
+
     //认证
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -40,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .withUser("zs").password(new BCryptPasswordEncoder().encode("123")).roles("vip2","vip3")
 //                .and().withUser("root").password(new BCryptPasswordEncoder().encode("123")).roles("vip1","vip2","vip3")
 //                .and().withUser("guest").password(new BCryptPasswordEncoder().encode("123")).roles("vip1");
-        auth.authenticationProvider(new MyAuthenticationProvider());
+
+        auth.authenticationProvider(myAuthenticationProvider());
 
     }
 

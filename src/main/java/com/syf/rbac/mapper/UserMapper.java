@@ -24,8 +24,8 @@ public interface UserMapper extends BaseMapper<User> {
     List<Map<String, Object>> selectPermission(@Param("id") Long id);
 
     @Select("SELECT * from `user` where `user`.name='${username}'")
-    User loadUserByUsername(String username);
+    User loadUserByUsername(@Param("username") String username);
 
     @Select("select role.name from role where role.id in(select role_id from user_role INNER JOIN `user` ON user_role.user_id=`user`.id where `user`.name='${username}')")
-    List<Role> findRoleByUsername(String username);
+    List<Role> findRoleByUsername(@Param("username") String username);
 }

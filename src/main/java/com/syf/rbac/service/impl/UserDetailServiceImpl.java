@@ -25,6 +25,7 @@ public class UserDetailServiceImpl implements UserDetailsService  {
     @Autowired
     private UserMapper userMapper;
 
+
     @Override
     public UserDetails loadUserByUsername(String username) {
         User myUser=userMapper.loadUserByUsername(username);
