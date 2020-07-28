@@ -57,7 +57,7 @@
     <div>
         <br>
         <div class="ui three column stackable grid">
-            <div class="column" sec:authorize="hasRole('vip1')">
+            <div class="column" sec:authorize="hasAnyRole('ADMIN','USER','VIP')">
                 <div class="ui raised segment">
                     <div class="ui">
                         <div class="content">
@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-            <div class="column" sec:authorize="hasRole('vip2')">
+            <div class="column" sec:authorize="hasAnyRole('ADMIN','VIP')">
                 <div class="ui raised segment">
                     <div class="ui">
                         <div class="content">
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="column" sec:authorize="hasRole('vip3')">
+            <div class="column" sec:authorize="hasAnyRole('ADMIN')">
                 <div class="ui raised segment">
                     <div class="ui">
                         <div class="content">

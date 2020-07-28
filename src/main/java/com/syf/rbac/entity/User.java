@@ -34,5 +34,4 @@ public class User {
 
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
-
 }

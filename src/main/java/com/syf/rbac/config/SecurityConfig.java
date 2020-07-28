@@ -21,9 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/level1/**").hasRole("管理员")
-                .antMatchers("/level2/**").hasRole("普通用户")
-                .antMatchers("/level3/**").hasRole("高级会员");
+                .antMatchers("/level1/**").hasAnyRole("ADMIN","USER","VIP")
+                .antMatchers("/level2/**").hasAnyRole("ADMIN","VIP")
+                .antMatchers("/level3/**").hasAnyRole("ADMIN");
 
         http.formLogin().loginPage("/toLogin").usernameParameter("user").passwordParameter("pwd").loginProcessingUrl("/toLogin");
 
