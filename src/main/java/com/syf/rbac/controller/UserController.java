@@ -51,8 +51,8 @@ public class UserController {
         return userService.setRole(userRole);
     }
 
-    @RequestMapping("/selectPermission/{id}")
-    public List<Map<String, Object>> select(@PathVariable("id") long id){
-        return userService.selectPermission(id);
+    @RequestMapping("/selectPermission/{name}")
+    public List<Map<String, Object>> select(@PathVariable("name") String name){
+        return userService.selectPermission(name);
     }
 }

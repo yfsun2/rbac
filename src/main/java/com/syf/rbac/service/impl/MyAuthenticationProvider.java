@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @Author syf
  * @Date 2020/7/27 17:05
@@ -18,7 +20,8 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
     private UserDetailServiceImpl userDetailServiceImpl;
-
+    @Autowired
+    private HttpSession session;
     @Override
     public Authentication authenticate(Authentication authentication)  {
         String username=authentication.getName();
@@ -29,17 +32,21 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 //        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 //        boolean flag = bCryptPasswordEncoder.matches(password, userDetails.getPassword());
         boolean flag=password.equals(userDetails.getPassword());
+
         // 校验通过
         if (flag){
             // 将权限信息也封装进去
+            session.setAttribute("name",username);
             return new UsernamePasswordAuthenticationToken(userDetails,password,userDetails.getAuthorities());
         }
         // 验证失败返回 null
+        session.setAttribute("name",null);
         return null;
     }
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return aClass.equals(UsernamePasswordAuthenticationToken.class);
+        return true;
+//        return aClass.equals(UsernamePasswordAuthenticationToken.class);
     }
 }

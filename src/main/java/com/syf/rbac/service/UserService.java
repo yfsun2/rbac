@@ -48,6 +48,6 @@ public interface UserService {
      * @param id id
      * @return map
      */
-    List<Map<String, Object>> selectPermission(Long id);
+    List<Map<String, Object>> selectPermission(String name);
 
 }

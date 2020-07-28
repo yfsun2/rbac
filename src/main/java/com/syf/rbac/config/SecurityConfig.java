@@ -1,6 +1,8 @@
 package com.syf.rbac.config;
 
 import com.syf.rbac.service.impl.MyAuthenticationProvider;
+import com.syf.rbac.service.impl.UserDetailServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private UserDetailServiceImpl userDetailService;
     //授权
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -25,13 +29,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/level2/**").hasAnyRole("ADMIN","VIP")
                 .antMatchers("/level3/**").hasAnyRole("ADMIN");
 
-        http.formLogin().loginPage("/toLogin").usernameParameter("user").passwordParameter("pwd").loginProcessingUrl("/toLogin");
+        http.formLogin().loginPage("/toLogin").usernameParameter("user").passwordParameter("pwd").loginProcessingUrl("/login");
 
         http.csrf().disable();
 
         http.logout().logoutSuccessUrl("/");
 
-        http.rememberMe().rememberMeParameter("remember-me");
+        http.rememberMe().userDetailsService(userDetailService).rememberMeParameter("remember-me");
     }
 
     @Bean

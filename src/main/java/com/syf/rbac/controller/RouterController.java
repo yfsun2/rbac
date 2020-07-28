@@ -1,8 +1,13 @@
 package com.syf.rbac.controller;
 
+import com.syf.rbac.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @Author syf
@@ -11,8 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class RouterController {
 
-    @RequestMapping({"/","/index"})
-    public String index(){
+    @Autowired
+    private UserServiceImpl userService;
+
+    @RequestMapping({"/","/index/"})
+    public String index(Model model, HttpSession session){
+        String name= (String) session.getAttribute("name");
+        model.addAttribute("messages",userService.selectPermission(name));
         return "index";
     }
 

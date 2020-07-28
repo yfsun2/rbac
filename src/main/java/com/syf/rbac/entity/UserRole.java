@@ -17,8 +17,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class UserRole {
 
-    private Long id;
-
     private Long userId;
 
     private Long roleId;

@@ -19,9 +19,9 @@ import java.util.Map;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
-    @Select("SELECT `user`.id 用户ID,`user`.`name` 用户姓名,role.`name` 角色名称,permission.title 拥有的权限 from permission INNER JOIN role_permission INNER JOIN role INNER JOIN user_role INNER JOIN `user` ON permission.id=role_permission.permission_id AND role_permission.role_id=role.id\n" +
-            "AND role.id=user_role.role_id and user_role.user_id=`user`.id WHERE `user`.id=${id}")
-    List<Map<String, Object>> selectPermission(@Param("id") Long id);
+    @Select("SELECT `user`.id userID,`user`.`name` userName,role.`name` roleName,permission.title permissionName,permission.action permissionAction from permission INNER JOIN role_permission INNER JOIN role INNER JOIN user_role INNER JOIN `user` ON permission.id=role_permission.permission_id AND role_permission.role_id=role.id\n" +
+            "AND role.id=user_role.role_id and user_role.user_id=`user`.id WHERE `user`.name='${name}'")
+    List<Map<String, Object>> selectPermission(@Param("name") String name);
 
     @Select("SELECT * from `user` where `user`.name='${username}'")
     User loadUserByUsername(@Param("username") String username);

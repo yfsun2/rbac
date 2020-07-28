@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Map<String, Object>> selectPermission(Long id) {
-        return userMapper.selectPermission(id);
+    public List<Map<String, Object>> selectPermission(String name) {
+        return userMapper.selectPermission(name);
     }
 
 }

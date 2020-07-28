@@ -6,6 +6,7 @@
     <title>首页</title>
     <!--semantic-ui-->
     <link href="https://cdn.bootcss.com/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+<!--    <link th:href="@{/css/semantic.min.css}" rel="stylesheet">-->
     <link th:href="@{/css/qinstyle.css}" rel="stylesheet">
 </head>
 <body>
@@ -51,11 +52,26 @@
     </div>
 
     <div class="ui segment" style="text-align: center">
-        <h3>Spring Security</h3>
+        <h3>RBAC Spring Security</h3>
     </div>
 
     <div>
         <br>
+    <table class="ui celled table" sec:authorize="isAuthenticated()">
+            <tr>
+                <td>用户ID</td>
+                <td>用户姓名</td>
+                <td>角色</td>
+                <td>操作权限</td>
+            </tr>
+            <tr th:each="message : ${messages}">
+                <td th:text="${message.userID}"></td>
+                <td th:text="${message.userName}"></td>
+                <td th:text="${message.roleName}"></td>
+                <td><a th:href="@{${message.permissionAction}}" th:text="${message.permissionName}" th:target="_blank"></a></td>
+
+            </tr>
+    </table>
         <div class="ui three column stackable grid">
             <div class="column" sec:authorize="hasAnyRole('ADMIN','USER','VIP')">
                 <div class="ui raised segment">
