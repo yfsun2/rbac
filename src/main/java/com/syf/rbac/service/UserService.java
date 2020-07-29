@@ -44,8 +44,8 @@ public interface UserService {
     int setRole(UserRole userRole);
 
     /**
-     * 根据用户id查权限
-     * @param id id
+     * 根据用户name查权限
+     * @param name name
      * @return map
      */
     List<Map<String, Object>> selectPermission(String name);
