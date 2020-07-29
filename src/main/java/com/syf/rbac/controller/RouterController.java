@@ -7,8 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
-
 /**
  * @Author syf
  * @Date 2020/7/27 9:29
@@ -20,9 +18,7 @@ public class RouterController {
     private UserServiceImpl userService;
 
     @RequestMapping({"/","/index"})
-    public String index(Model model, HttpSession session){
-        String name= (String) session.getAttribute("name");
-        model.addAttribute("messages",userService.selectPermission(name));
+    public String index(){     
         return "index";
     }
 
