@@ -19,7 +19,7 @@ public class RouterController {
     @Autowired
     private UserServiceImpl userService;
 
-    @RequestMapping({"/","/index/"})
+    @RequestMapping({"/","/index"})
     public String index(Model model, HttpSession session){
         String name= (String) session.getAttribute("name");
         model.addAttribute("messages",userService.selectPermission(name));

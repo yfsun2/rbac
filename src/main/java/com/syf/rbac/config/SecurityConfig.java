@@ -29,9 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/level2/**").hasAnyRole("ADMIN","VIP")
                 .antMatchers("/level3/**").hasAnyRole("ADMIN");
 
-        http.formLogin().loginPage("/toLogin").usernameParameter("user").passwordParameter("pwd").loginProcessingUrl("/login");
+        http.formLogin().loginPage("/toLogin").usernameParameter("user").passwordParameter("pwd").loginProcessingUrl("/login").permitAll();
 
         http.csrf().disable();
+
+        http.cors();
 
         http.logout().logoutSuccessUrl("/");
 
@@ -46,13 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //认证
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder())
-//                .withUser("zs").password(new BCryptPasswordEncoder().encode("123")).roles("vip2","vip3")
-//                .and().withUser("root").password(new BCryptPasswordEncoder().encode("123")).roles("vip1","vip2","vip3")
-//                .and().withUser("guest").password(new BCryptPasswordEncoder().encode("123")).roles("vip1");
-
         auth.authenticationProvider(myAuthenticationProvider());
-
     }
-
 }
